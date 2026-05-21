@@ -8,11 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import {
-  CreatedPot,
-  PotCategoryId,
-  POT_STORAGE_KEY,
-} from "@/types/pot";
+import { CreatedPot, PotCategoryId, POT_STORAGE_KEY } from "@/types/pot";
 
 interface PotContextValue {
   pot: CreatedPot | null;
@@ -24,23 +20,14 @@ interface PotContextValue {
 const PotContext = createContext<PotContextValue | undefined>(undefined);
 
 function readStoredPot(): CreatedPot | null {
-  if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(POT_STORAGE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as CreatedPot;
-    if (!parsed?.name || !parsed?.categoryId) return null;
-    return parsed;
+    return parsed?.name && parsed?.categoryId ? parsed : null;
   } catch {
     return null;
   }
-}
-
-function makeId(): string {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
-  }
-  return `pot_${Math.random().toString(36).slice(2)}_${Date.now()}`;
 }
 
 export function PotProvider({ children }: { children: React.ReactNode }) {
@@ -50,14 +37,9 @@ export function PotProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setPot(readStoredPot());
     setHydrated(true);
-  }, []);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
     const onStorage = (event: StorageEvent) => {
-      if (event.key === POT_STORAGE_KEY) {
-        setPot(readStoredPot());
-      }
+      if (event.key === POT_STORAGE_KEY) setPot(readStoredPot());
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
@@ -66,14 +48,12 @@ export function PotProvider({ children }: { children: React.ReactNode }) {
   const savePot = useCallback<PotContextValue["savePot"]>(
     ({ name, categoryId }) => {
       const created: CreatedPot = {
-        id: makeId(),
+        id: crypto.randomUUID(),
         name: name.trim(),
         categoryId,
         createdAt: new Date().toISOString(),
       };
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(POT_STORAGE_KEY, JSON.stringify(created));
-      }
+      window.localStorage.setItem(POT_STORAGE_KEY, JSON.stringify(created));
       setPot(created);
       return created;
     },
@@ -81,9 +61,7 @@ export function PotProvider({ children }: { children: React.ReactNode }) {
   );
 
   const clearPot = useCallback(() => {
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem(POT_STORAGE_KEY);
-    }
+    window.localStorage.removeItem(POT_STORAGE_KEY);
     setPot(null);
   }, []);
 
@@ -97,8 +75,6 @@ export function PotProvider({ children }: { children: React.ReactNode }) {
 
 export function usePot(): PotContextValue {
   const ctx = useContext(PotContext);
-  if (!ctx) {
-    throw new Error("usePot must be used within a PotProvider");
-  }
+  if (!ctx) throw new Error("usePot must be used within a PotProvider");
   return ctx;
 }
