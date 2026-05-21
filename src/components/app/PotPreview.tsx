@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import {
   Button,
-  Container,
   Heading,
   IconButton,
   Logo,
@@ -20,16 +19,10 @@ import {
   ArrowUpRightIcon,
   ChevronLeftIcon,
   DotsIcon,
-  FacebookIcon,
-  InstagramIcon,
-  MailIcon,
   PaletteIcon,
-  QrIcon,
-  WhatsAppIcon,
-  XIcon,
 } from "@/components/ui/Icon";
 import { SignUpModal } from "@/components/site/SignUpModal";
-import { SiteFooter } from "@/components/site/SiteFooter";
+import { PotFooter } from "@/components/site/PotFooter";
 
 const Shell = styled.div`
   min-height: 100vh;
@@ -38,33 +31,47 @@ const Shell = styled.div`
   flex-direction: column;
 `;
 
-const TopBar = styled.header`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => `${theme.space[4]} ${theme.space[5]}`};
-  background: ${({ theme }) => theme.colors.surface};
-`;
-
-const BackSlot = styled.div`
-  position: absolute;
-  left: ${({ theme }) => theme.space[3]};
-  top: 50%;
-  transform: translateY(-50%);
-`;
-
 const HeroPurple = styled.section`
+  position: relative;
   background: ${({ theme }) => theme.colors.surfaceInverse};
   color: ${({ theme }) => theme.colors.text.inverse};
   text-align: center;
   padding: ${({ theme }) =>
-    `${theme.space[11]} ${theme.space[5]} ${theme.space[16]}`};
+    `${theme.space[4]} ${theme.space[5]} ${theme.space[16]}`};
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), 0 100%);
 
   ${({ theme }) => theme.media.md} {
     padding: ${({ theme }) =>
-      `${theme.space[14]} ${theme.space[5]} ${theme.space[16]}`};
+      `${theme.space[5]} ${theme.space[5]} ${theme.space[16]}`};
+  }
+`;
+
+const HeroTopBar = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-bottom: ${({ theme }) => theme.space[8]};
+
+  ${({ theme }) => theme.media.md} {
+    margin-bottom: ${({ theme }) => theme.space[10]};
+  }
+`;
+
+const BackSlot = styled.div`
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  button {
+    color: ${({ theme }) => theme.colors.text.inverse};
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.12);
+      color: ${({ theme }) => theme.colors.text.inverse};
+    }
   }
 `;
 
@@ -95,6 +102,8 @@ const ActionsCard = styled(Surface)`
 const InvitePanel = styled(Surface)`
   margin: ${({ theme }) => theme.space[7]} auto 0;
   width: min(100% - ${({ theme }) => theme.space[9]}, 660px);
+  background: rgba(233, 232, 252, 0.4);
+  border-radius: 10px;
 `;
 
 const InviteGrid = styled.div`
@@ -113,13 +122,19 @@ const BodyArea = styled.div`
   padding-bottom: ${({ theme }) => theme.space[11]};
 `;
 
+const InviteIcon = styled.img`
+  width: 22px;
+  height: 22px;
+  display: block;
+`;
+
 const INVITE_OPTIONS = [
-  { id: "email", label: "Email", icon: <MailIcon size={22} /> },
-  { id: "qr", label: "QR Code", icon: <QrIcon size={22} /> },
-  { id: "whatsapp", label: "WhatsApp", icon: <WhatsAppIcon size={22} /> },
-  { id: "facebook", label: "Facebook", icon: <FacebookIcon size={20} /> },
-  { id: "instagram", label: "Instagram", icon: <InstagramIcon size={20} /> },
-  { id: "x", label: "X", icon: <XIcon size={20} /> },
+  { id: "email", label: "Email", src: "/assets/email.svg" },
+  { id: "qr", label: "QR Code", src: "/assets/qr-code.svg" },
+  { id: "whatsapp", label: "WhatsApp", src: "/assets/whatsapp.svg" },
+  { id: "facebook", label: "Facebook", src: "/assets/facebook.svg" },
+  { id: "instagram", label: "Instagram", src: "/assets/instagram.svg" },
+  { id: "x", label: "X", src: "/assets/x.svg" },
 ] as const;
 
 interface PotPreviewProps {
@@ -134,19 +149,18 @@ export function PotPreview({ potName }: PotPreviewProps) {
 
   return (
     <Shell>
-      <TopBar>
-        <BackSlot>
-          <IconButton
-            aria-label="Back to homepage"
-            onClick={() => router.push("/")}
-          >
-            <ChevronLeftIcon size={24} />
-          </IconButton>
-        </BackSlot>
-        <Logo />
-      </TopBar>
-
       <HeroPurple>
+        <HeroTopBar>
+          <BackSlot>
+            <IconButton
+              aria-label="Back to homepage"
+              onClick={() => router.push("/")}
+            >
+              <ChevronLeftIcon size={24} />
+            </IconButton>
+          </BackSlot>
+          <Logo variant="white" />
+        </HeroTopBar>
         <PotTitle
           level={1}
           size="7xl"
@@ -215,8 +229,6 @@ export function PotPreview({ potName }: PotPreviewProps) {
 
         <InvitePanel
           as="section"
-          $tone="tinted"
-          $radius="2xl"
           $pad={5}
           aria-labelledby="invite-title"
         >
@@ -228,7 +240,7 @@ export function PotPreview({ potName }: PotPreviewProps) {
               {INVITE_OPTIONS.map((opt) => (
                 <Tile
                   key={opt.id}
-                  icon={opt.icon}
+                  icon={<InviteIcon src={opt.src} alt="" />}
                   label={opt.label}
                   onClick={interceptAction}
                 />
@@ -238,7 +250,7 @@ export function PotPreview({ potName }: PotPreviewProps) {
         </InvitePanel>
       </BodyArea>
 
-      <SiteFooter />
+      <PotFooter />
       <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
     </Shell>
   );
