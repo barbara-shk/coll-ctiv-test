@@ -97,6 +97,7 @@ export function TestimonialsSection() {
                   <TestimonialHeader>
                     <Stack $gap={2} $align="flex-start">
                       <Text weight="bold">{t.name}</Text>
+                      {/* star emoji used due to image not exporting well from Figma */}
                       <Stars aria-label={`${t.rating} out of 5 stars`}>
                         {"⭐".repeat(t.rating)}
                       </Stars>

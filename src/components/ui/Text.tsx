@@ -97,9 +97,30 @@ const headingPresets: Record<HeadingLevel, HeadingPresets> = {
   6: { size: "md", weight: "semibold", leading: "base", tracking: "normal" },
 };
 
+const mobileHeadingSize: Partial<Record<TextSize, TextSize>> = {
+  "9xl": "6xl",
+  "8xl": "5xl",
+  "7xl": "5xl",
+  "6xl": "4xl",
+  "5xl": "4xl",
+  "4xl": "3xl",
+};
+
 const StyledHeading = styled.h1<TypographyProps>`
   ${typographyMixin}
   font-family: ${({ theme }) => theme.fonts.display};
+
+  ${({ theme, $size }) => {
+    const mobile = $size && mobileHeadingSize[$size];
+    return (
+      mobile &&
+      css`
+        ${theme.media.maxMd} {
+          font-size: ${theme.fontSizes[mobile]};
+        }
+      `
+    );
+  }}
 `;
 
 export interface HeadingProps

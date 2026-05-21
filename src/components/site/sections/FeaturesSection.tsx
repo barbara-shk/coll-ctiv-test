@@ -11,11 +11,20 @@ const FeatureRow = styled(Container)<{ $reverse?: boolean }>`
   gap: ${({ theme }) => theme.space[8]};
   grid-template-columns: 1fr;
   align-items: center;
-  padding: ${({ theme }) => `${theme.space[10]} 0`};
+  padding-top: ${({ theme }) => theme.space[10]};
+  padding-bottom: ${({ theme }) => theme.space[10]};
+
+  > *:nth-child(2) {
+    order: -1;
+  }
 
   ${({ theme }) => theme.media.md} {
     grid-template-columns: 1fr 1fr;
     gap: ${({ theme }) => theme.space[12]};
+
+    > *:nth-child(2) {
+      order: 0;
+    }
   }
 
   ${({ $reverse, theme }) =>
@@ -76,8 +85,12 @@ const PotIllustration = styled.div<{ $play: boolean }>`
 
 const MediaWrap = styled.div`
   width: 100%;
-  max-width: 460px;
+  max-width: 320px;
   margin: 0 auto;
+
+  ${({ theme }) => theme.media.md} {
+    max-width: 460px;
+  }
 
   img {
     display: block;
@@ -88,8 +101,12 @@ const MediaWrap = styled.div`
 
 const StaticIllustration = styled.div`
   width: 100%;
-  max-width: 486px;
+  max-width: 320px;
   margin: 0 auto;
+
+  ${({ theme }) => theme.media.md} {
+    max-width: 486px;
+  }
 
   img {
     display: block;

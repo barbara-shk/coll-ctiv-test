@@ -54,11 +54,7 @@ const ErrorMessage = styled(motion.p)`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.danger};
 `;
-
-// Yellow focus halo matching the selected-Tile styling, scoped to the
-// hero widget's input. Double `&&` raises specificity above the shared
-// InputShell rule in Field.tsx, and the `:not([data-invalid])` guard
-// keeps the danger styling intact when validation fails.
+ 
 const HighlightInput = styled.div`
   && > div:focus-within:not([data-invalid]) {
     border-color: ${({ theme }) => theme.colors.brandHighlight};

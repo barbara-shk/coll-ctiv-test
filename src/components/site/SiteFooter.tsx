@@ -1,5 +1,6 @@
 "use client";
 
+import type { ComponentType } from "react";
 import styled from "styled-components";
 import { Container, Logo, Row, Stack, Text } from "@/components/ui";
 import {
@@ -7,6 +8,52 @@ import {
   LinkedInIcon,
   PinterestIcon,
 } from "@/components/ui/Icon";
+
+type FooterLink = { label: string; href: string };
+
+const NAV_COLUMNS: Array<{ heading: string; links: FooterLink[] }> = [
+  {
+    heading: "Navigation",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About Us", href: "/about" },
+      { label: "Blog", href: "/blog" },
+      { label: "Support", href: "/support" },
+      { label: "Contact Us", href: "/contact" },
+      { label: "Careers", href: "/careers" },
+    ],
+  },
+  {
+    heading: "Product",
+    links: [
+      { label: "Login", href: "/login" },
+      { label: "App Store", href: "https://apps.apple.com" },
+      { label: "Google Play", href: "https://play.google.com" },
+      { label: "PayPal Money Pools", href: "/paypal-money-pools" },
+      { label: "Sweepstake Generator", href: "/sweepstake-generator" },
+      { label: "Secret Santa Generator", href: "/secret-santa-generator" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Terms & Conditions", href: "/terms" },
+      { label: "Privacy Policy", href: "/privacy" },
+    ],
+  },
+];
+
+const SOCIAL_LINKS: Array<{
+  label: string;
+  href: string;
+  Icon: ComponentType<{ size?: number }>;
+}> = [
+  { label: "Instagram", href: "https://www.instagram.com/collctiv", Icon: InstagramIcon },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/collctiv", Icon: LinkedInIcon },
+  { label: "Pinterest", href: "https://www.pinterest.com/collctiv", Icon: PinterestIcon },
+];
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
 
 const Wrap = styled.footer`
   background: ${({ theme }) => theme.colors.surface};
@@ -111,64 +158,39 @@ export function SiteFooter() {
               Follow us on social
             </Text>
             <Row $gap={2}>
-              <SocialLink
-                href="https://www.instagram.com/collctiv"
-                aria-label="Instagram"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <InstagramIcon size={18} />
-              </SocialLink>
-              <SocialLink
-                href="https://www.linkedin.com/company/collctiv"
-                aria-label="LinkedIn"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <LinkedInIcon size={18} />
-              </SocialLink>
-              <SocialLink
-                href="https://www.pinterest.com/collctiv"
-                aria-label="Pinterest"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <PinterestIcon size={18} />
-              </SocialLink>
+              {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                <SocialLink
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Icon size={18} />
+                </SocialLink>
+              ))}
             </Row>
           </BrandColumn>
 
-          <nav aria-label="Navigation">
-            <ColumnHeading>Navigation</ColumnHeading>
-            <LinkList>
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/support">Support</a></li>
-              <li><a href="/contact">Contact Us</a></li>
-              <li><a href="/careers">Careers</a></li>
-            </LinkList>
-          </nav>
-
-          <nav aria-label="Product">
-            <ColumnHeading>Product</ColumnHeading>
-            <LinkList>
-              <li><a href="/login">Login</a></li>
-              <li><a href="https://apps.apple.com" target="_blank" rel="noreferrer">App Store</a></li>
-              <li><a href="https://play.google.com" target="_blank" rel="noreferrer">Google Play</a></li>
-              <li><a href="/paypal-money-pools">PayPal Money Pools</a></li>
-              <li><a href="/sweepstake-generator">Sweepstake Generator</a></li>
-              <li><a href="/secret-santa-generator">Secret Santa Generator</a></li>
-            </LinkList>
-          </nav>
-
-          <nav aria-label="Legal">
-            <ColumnHeading>Legal</ColumnHeading>
-            <LinkList>
-              <li><a href="/terms">Terms &amp; Conditions</a></li>
-              <li><a href="/privacy">Privacy Policy</a></li>
-            </LinkList>
-          </nav>
+          {NAV_COLUMNS.map(({ heading, links }) => (
+            <nav key={heading} aria-label={heading}>
+              <ColumnHeading>{heading}</ColumnHeading>
+              <LinkList>
+                {links.map(({ label, href }) => (
+                  <li key={href}>
+                    <a
+                      href={href}
+                      {...(isExternal(href)
+                        ? { target: "_blank", rel: "noreferrer" }
+                        : {})}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </LinkList>
+            </nav>
+          ))}
         </Columns>
 
         <Divider />
