@@ -4,7 +4,7 @@ import styled, { css, keyframes } from "styled-components";
 import { Button, Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { useInView } from "@/hooks/useInView";
 import { SectionRoot } from "./shared";
-import { CustomisePotSvg } from "./CustomisePotSvg";
+import { CustomisePotSvg } from "@/components/illustrations/CustomisePotSvg";
 
 const FeatureRow = styled(Container)<{ $reverse?: boolean }>`
   display: grid;

@@ -18,8 +18,8 @@ import {
   DotsIcon,
   PaletteIcon,
 } from "@/components/ui/Icon";
-import { SignUpModal } from "@/components/site/SignUpModal";
-import { PotFooter } from "@/components/site/PotFooter";
+import { SignUpModal } from "@/components/shared/SignUpModal";
+import { PotFooter } from "./PotFooter";
 import { InvitePanel } from "./InvitePanel";
 
 const Shell = styled.div`

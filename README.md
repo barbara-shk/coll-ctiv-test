@@ -60,9 +60,12 @@ src/app/
 └── app/pot/page.tsx    # app.collctiv.com/pot
 
 src/components/
-├── ui/    # primitives
-├── site/  # marketing-side composites
-└── app/   # app-side composites
+├── ui/             # primitives (Button, TextInput, Modal, …)
+├── illustrations/  # large inline SVGs
+├── shared/         # composites used by both site and app (SignUpModal)
+├── site/           # marketing chrome (Hero, SiteHeader/Footer, CreatePotWidget)
+│   └── landing/    # landing-page sections + their data/utils
+└── app/            # app-side composites (PotPreview, PotFooter, InvitePanel)
 ```
 
 The primitives are intentionally small so they can be reused; the composites
