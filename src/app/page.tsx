@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Hero } from "@/components/site/Hero";
 import {
+  FaqSection,
   FeaturesSection,
   HowItWorksSection,
   PurpleStorySection,
@@ -36,6 +37,7 @@ export default function HomePage() {
       <FeaturesSection />
       <TestimonialsSection />
       <StatsBanner />
+      <FaqSection />
       <SiteFooter />
     </Main>
   );
