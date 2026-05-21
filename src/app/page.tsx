@@ -12,7 +12,7 @@ import {
   PurpleStorySection,
   StatsBanner,
   TestimonialsSection,
-} from "@/components/site/Sections";
+} from "@/components/site/sections";
 
 const Main = styled.main`
   min-height: 100vh;
