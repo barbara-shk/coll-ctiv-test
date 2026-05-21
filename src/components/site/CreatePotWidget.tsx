@@ -63,6 +63,17 @@ const ErrorMessage = styled(motion.p)`
 /* Static config                                                              */
 /* -------------------------------------------------------------------------- */
 
+// Yellow focus halo matching the selected-Tile styling, scoped to the
+// hero widget's input. Double `&&` raises specificity above the shared
+// InputShell rule in Field.tsx, and the `:not([data-invalid])` guard
+// keeps the danger styling intact when validation fails.
+const HighlightInput = styled.div`
+  && > div:focus-within:not([data-invalid]) {
+    border-color: ${({ theme }) => theme.colors.brandHighlight};
+    box-shadow: ${({ theme }) => theme.shadows.focusAccent};
+  }
+`;
+
 const CATEGORY_EMOJI: Record<PotCategoryId, string> = {
   trip: "✈️",
   gift: "🎁",
@@ -158,17 +169,19 @@ export function CreatePotWidget() {
           labelAddon={`${name.length}/${POT_NAME_MAX_LENGTH}`}
           error={showErrors && nameError ? nameError : undefined}
         >
-          <TextInput
-            id={nameInputId}
-            type="text"
-            maxLength={POT_NAME_MAX_LENGTH}
-            placeholder="e.g. John's Birthday"
-            value={name}
-            onChange={(event) => setName(sanitiseName(event.target.value))}
-            autoComplete="off"
-            invalid={showErrors && !!nameError}
-            leftAdornment={<PencilIcon size={18} />}
-          />
+          <HighlightInput>
+            <TextInput
+              id={nameInputId}
+              type="text"
+              maxLength={POT_NAME_MAX_LENGTH}
+              placeholder="e.g. John's Birthday"
+              value={name}
+              onChange={(event) => setName(sanitiseName(event.target.value))}
+              autoComplete="off"
+              invalid={showErrors && !!nameError}
+              leftAdornment={<PencilIcon size={18} />}
+            />
+          </HighlightInput>
         </Field>
 
         <Button
