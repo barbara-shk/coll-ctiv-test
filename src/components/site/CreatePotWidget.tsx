@@ -14,10 +14,6 @@ import {
   Tile,
 } from "@/components/ui";
 import {
-  PlaneIcon,
-  GiftIcon,
-  MedalIcon,
-  HeartIcon,
   PencilIcon,
   StarIcon,
 } from "@/components/ui/Icon";
@@ -38,7 +34,7 @@ const CategoryGrid = styled.div`
   gap: ${({ theme }) => theme.space[3]};
 
   ${({ theme }) => theme.media.md} {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 `;
 
@@ -67,14 +63,13 @@ const ErrorMessage = styled(motion.p)`
 /* Static config                                                              */
 /* -------------------------------------------------------------------------- */
 
-const CATEGORY_ICON: Record<
-  PotCategoryId,
-  React.ComponentType<{ size?: number }>
-> = {
-  trip: PlaneIcon,
-  gift: GiftIcon,
-  sport: MedalIcon,
-  charity: HeartIcon,
+const CATEGORY_EMOJI: Record<PotCategoryId, string> = {
+  trip: "✈️",
+  gift: "🎁",
+  sport: "🏃",
+  peeps: "🎉",
+  other: "✨",
+  charity: "🖤",
 };
 
 function sanitiseName(raw: string): string {
@@ -130,7 +125,7 @@ export function CreatePotWidget() {
           </Text>
           <CategoryGrid role="radiogroup" aria-labelledby={categoryLabelId}>
             {POT_CATEGORIES.map((category) => {
-              const Icon = CATEGORY_ICON[category.id];
+              const emoji = CATEGORY_EMOJI[category.id];
               const selected = categoryId === category.id;
               return (
                 <Tile
@@ -138,7 +133,7 @@ export function CreatePotWidget() {
                   role="radio"
                   aria-checked={selected}
                   selected={selected}
-                  icon={<Icon size={22} />}
+                  icon={<span style={{ fontSize: "24px" }}>{emoji}</span>}
                   label={category.label}
                   onClick={() => {
                     setCategoryId(category.id);

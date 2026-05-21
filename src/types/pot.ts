@@ -2,6 +2,8 @@ export type PotCategoryId =
   | "trip"
   | "gift"
   | "sport"
+  | "peeps"
+  | "other"
   | "charity";
 
 export interface PotCategory {
@@ -13,18 +15,28 @@ export interface PotCategory {
 export const POT_CATEGORIES: readonly PotCategory[] = [
   {
     id: "trip",
-    label: "To travel somewhere with friends",
-    description: "To travel somewhere with friends",
+    label: "To travel somewhere cool",
+    description: "To travel somewhere cool",
   },
   {
     id: "gift",
-    label: "To pitch in for a gift",
-    description: "To pitch in for a gift",
+    label: "To do a whip-round for a gift",
+    description: "To do a whip-round for a gift",
   },
   {
     id: "sport",
-    label: "To get sporty",
-    description: "To get sporty",
+    label: "To get sweaty and sporty",
+    description: "To get sweaty and sporty",
+  },
+  {
+    id: "peeps",
+    label: "To do something fun with your peeps",
+    description: "To do something fun with your peeps",
+  },
+  {
+    id: "other",
+    label: "Something else entirely",
+    description: "Something else entirely",
   },
   {
     id: "charity",
