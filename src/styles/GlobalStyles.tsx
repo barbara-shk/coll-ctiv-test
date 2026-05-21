@@ -3,6 +3,12 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
+  @property --sweep {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: true;
+  }
+
   *, *::before, *::after { box-sizing: border-box; }
 
   html, body {
