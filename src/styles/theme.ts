@@ -84,6 +84,8 @@ const lineHeights = {
   base: 1.4,
   body: 1.55,
   loose: 1.7,
+  heading: 1.275,
+  relaxed: 1.5,
 } as const;
 
 const letterSpacings = {
@@ -216,8 +218,9 @@ export const theme = {
 
     // ----- text -----
     text: {
-      primary: palette.ebony,
-      secondary: palette.shuttleGray,
+      primary: palette.portGore,
+      heading: palette.oxfordBlue,
+      secondary: palette.riverBed,
       muted: palette.paleSky,
       subtle: palette.grayChateau,
       inverse: palette.white,

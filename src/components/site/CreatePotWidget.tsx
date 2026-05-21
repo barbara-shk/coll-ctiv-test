@@ -8,8 +8,8 @@ import {
   Button,
   Card,
   Field,
+  Heading,
   Stack,
-  Text,
   TextInput,
   Tile,
 } from "@/components/ui";
@@ -120,9 +120,9 @@ export function CreatePotWidget() {
     <Card $pad={6} as="section" aria-labelledby={categoryLabelId}>
       <Stack as="form" $gap={5} onSubmit={handleSubmit} noValidate>
         <Stack $gap={3}>
-          <Text id={categoryLabelId} size="md" weight="semibold">
+          <Heading id={categoryLabelId} level={5}>
             What are you collecting for?
-          </Text>
+          </Heading>
           <CategoryGrid role="radiogroup" aria-labelledby={categoryLabelId}>
             {POT_CATEGORIES.map((category) => {
               const emoji = CATEGORY_EMOJI[category.id];
@@ -177,6 +177,7 @@ export function CreatePotWidget() {
           size="lg"
           fullWidth
           disabled={submitting}
+          shape="pill"
         >
           {submitting ? "Creating…" : "Create your pot"}
         </Button>

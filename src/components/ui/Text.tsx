@@ -4,8 +4,10 @@ import styled, { css, DefaultTheme } from "styled-components";
 
 type TextSize = keyof DefaultTheme["fontSizes"];
 type TextWeight = keyof DefaultTheme["fontWeights"];
+type TextFamily = keyof DefaultTheme["fonts"];
 type TextTone =
   | "primary"
+  | "heading"
   | "secondary"
   | "muted"
   | "subtle"
@@ -16,6 +18,7 @@ type TextTone =
 interface TypographyProps {
   $size?: TextSize;
   $weight?: TextWeight;
+  $family?: TextFamily;
   $tone?: TextTone;
   $align?: "left" | "center" | "right";
   $leading?: keyof DefaultTheme["lineHeights"];
@@ -28,6 +31,8 @@ const toneColor = (theme: DefaultTheme, tone: TextTone) => {
   switch (tone) {
     case "primary":
       return theme.colors.text.primary;
+    case "heading":
+      return theme.colors.text.heading;
     case "secondary":
       return theme.colors.text.secondary;
     case "muted":
@@ -45,7 +50,7 @@ const toneColor = (theme: DefaultTheme, tone: TextTone) => {
 
 const typographyMixin = css<TypographyProps>`
   margin: 0;
-  font-family: ${({ theme }) => theme.fonts.body};
+  font-family: ${({ theme, $family = "body" }) => theme.fonts[$family]};
   font-size: ${({ theme, $size = "lg" }) => theme.fontSizes[$size]};
   font-weight: ${({ theme, $weight = "regular" }) =>
     theme.fontWeights[$weight]};
@@ -73,14 +78,21 @@ interface HeadingPresets {
   weight: TextWeight;
   leading: keyof DefaultTheme["lineHeights"];
   tracking: keyof DefaultTheme["letterSpacings"];
+  tone?: TextTone;
 }
 
 const headingPresets: Record<HeadingLevel, HeadingPresets> = {
   1: { size: "6xl", weight: "bold", leading: "tight", tracking: "tight" },
-  2: { size: "5xl", weight: "bold", leading: "snug", tracking: "snug" },
+  2: {
+    size: "7xl",
+    weight: "bold",
+    leading: "heading",
+    tracking: "snug",
+    tone: "heading",
+  },
   3: { size: "3xl", weight: "bold", leading: "snug", tracking: "snug" },
   4: { size: "2xl", weight: "semibold", leading: "snug", tracking: "normal" },
-  5: { size: "lg", weight: "semibold", leading: "base", tracking: "normal" },
+  5: { size: "lg", weight: "semibold", leading: "relaxed", tracking: "normal" },
   6: { size: "md", weight: "semibold", leading: "base", tracking: "normal" },
 };
 
@@ -126,7 +138,7 @@ export function Heading({
       $weight={weight ?? preset.weight}
       $leading={leading ?? preset.leading}
       $tracking={tracking ?? preset.tracking}
-      $tone={tone}
+      $tone={tone ?? preset.tone}
       $align={align}
       {...rest}
     />
@@ -144,6 +156,7 @@ export interface TextProps
   as?: React.ElementType;
   size?: TextSize;
   weight?: TextWeight;
+  family?: TextFamily;
   tone?: TextTone;
   align?: "left" | "center" | "right";
   leading?: keyof DefaultTheme["lineHeights"];
@@ -157,6 +170,7 @@ export function Text({
   as = "p",
   size,
   weight,
+  family,
   tone,
   align,
   leading,
@@ -170,6 +184,7 @@ export function Text({
       as={as}
       $size={size}
       $weight={weight}
+      $family={family}
       $tone={tone}
       $align={align}
       $leading={leading}

@@ -14,6 +14,17 @@ const Wrap = styled.section`
 `;
 
 const Inner = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space[8]};
+`;
+
+const Intro = styled(Stack)`
+  max-width: 960px;
+  margin: 0 auto;
+`;
+
+const Columns = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.space[8]};
   grid-template-columns: 1fr;
@@ -44,19 +55,34 @@ export function Hero() {
   return (
     <Wrap>
       <Inner>
-        <Stack $gap={5}>
-          <Heading level={1}>
+        <Intro $gap={3} $align="center">
+          <Heading
+            level={1}
+            size="7xl"
+            tone="heading"
+            leading="heading"
+            tracking="snug"
+            align="center"
+          >
             Collect money without sharing bank details.
           </Heading>
-          <Text size="lg" tone="secondary" leading="body">
+          <Text
+            size="xl"
+            family="secondary"
+            tone="secondary"
+            leading="relaxed"
+            align="center"
+          >
             Organise the things you love with the people you love — without
             getting stuck with the bill.
           </Text>
+        </Intro>
+        <Columns>
           <CreatePotWidget />
-        </Stack>
-        <Visual aria-hidden>
-          <img src="/assets/cheer-hero-illustration.png" alt="" />
-        </Visual>
+          <Visual aria-hidden>
+            <img src="/assets/cheer-hero-illustration.png" alt="" />
+          </Visual>
+        </Columns>
       </Inner>
     </Wrap>
   );

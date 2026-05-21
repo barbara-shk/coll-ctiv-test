@@ -26,10 +26,10 @@ const TileSurface = styled.button<TileSurfaceProps>`
     $tone === "muted" ? theme.colors.surfaceMuted : theme.colors.surface};
   border: 1.5px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text.primary};
-  font-family: ${({ theme }) => theme.fonts.body};
+  font-family: ${({ theme }) => theme.fonts.secondary};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: ${({ theme }) => theme.fontWeights.semibold};
-  line-height: ${({ theme }) => theme.lineHeights.base};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
+  line-height: ${({ theme }) => theme.lineHeights.snug};
   text-align: center;
   cursor: pointer;
   transition: border-color ${({ theme }) => theme.transitions.base},
