@@ -13,6 +13,7 @@ type TextTone =
   | "subtle"
   | "inverse"
   | "brand"
+  | "accent"
   | "danger";
 
 interface TypographyProps {
@@ -43,6 +44,8 @@ const toneColor = (theme: DefaultTheme, tone: TextTone) => {
       return theme.colors.text.inverse;
     case "brand":
       return theme.colors.text.brand;
+    case "accent":
+      return theme.colors.text.accent;
     case "danger":
       return theme.colors.danger;
   }

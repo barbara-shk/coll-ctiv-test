@@ -10,6 +10,7 @@ import {
   HowItWorksSection,
   PurpleStorySection,
   StatsBanner,
+  TestimonialsSection,
 } from "@/components/site/Sections";
 
 const Main = styled.main`
@@ -33,6 +34,7 @@ export default function HomePage() {
       <PurpleStorySection />
       <HowItWorksSection />
       <FeaturesSection />
+      <TestimonialsSection />
       <StatsBanner />
       <SiteFooter />
     </Main>

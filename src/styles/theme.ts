@@ -225,6 +225,7 @@ export const theme = {
       subtle: palette.grayChateau,
       inverse: palette.white,
       brand: palette.paua,
+      accent: palette.razzmatazz,
       onAccent: palette.white,
     },
 
