@@ -21,8 +21,13 @@ const Divider = styled.hr`
 `;
 
 const Fine = styled(Text).attrs({ size: "xs", tone: "muted", align: "center" })`
-  a {
-    color: ${({ theme }) => theme.colors.text.brand};
+  a,
+  a:link,
+  a:visited,
+  a:hover,
+  a:active,
+  a:focus {
+    color: inherit;
     text-decoration: underline;
   }
 `;
