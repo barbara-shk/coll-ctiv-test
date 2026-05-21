@@ -6,7 +6,6 @@ import {
   InputHTMLAttributes,
   ReactNode,
   SelectHTMLAttributes,
-  useId,
 } from "react";
 import styled, { css } from "styled-components";
 import { Label } from "@/components/ui/Text";

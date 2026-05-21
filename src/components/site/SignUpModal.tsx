@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import {
   Button,
   Field,
-  Heading,
   Modal,
   Select,
   Stack,
@@ -45,14 +44,13 @@ export function SignUpModal({ open, onClose }: SignUpModalProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    if (!open) {
-      setMode("choose");
-      setSubmitted(false);
-      setName("");
-      setEmail("");
-    }
-  }, [open]);
+  const handleClose = () => {
+    setMode("choose");
+    setSubmitted(false);
+    setName("");
+    setEmail("");
+    onClose();
+  };
 
   const handleEmailSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -82,12 +80,12 @@ export function SignUpModal({ open, onClose }: SignUpModalProps) {
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       title={title}
       description={description}
     >
       {submitted ? (
-        <Button variant="secondary" fullWidth onClick={onClose}>
+        <Button variant="secondary" fullWidth onClick={handleClose}>
           Back to pot
         </Button>
       ) : mode === "choose" ? (

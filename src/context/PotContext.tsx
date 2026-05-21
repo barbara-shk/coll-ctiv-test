@@ -4,9 +4,8 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
 } from "react";
 import { CreatedPot, PotCategoryId, POT_STORAGE_KEY } from "@/types/pot";
 
@@ -19,31 +18,65 @@ interface PotContextValue {
 
 const PotContext = createContext<PotContextValue | undefined>(undefined);
 
-function readStoredPot(): CreatedPot | null {
-  try {
-    const raw = window.localStorage.getItem(POT_STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as CreatedPot;
-    return parsed?.name && parsed?.categoryId ? parsed : null;
-  } catch {
-    return null;
-  }
+const inTabListeners = new Set<() => void>();
+
+function notifyInTab() {
+  for (const callback of inTabListeners) callback();
 }
 
+function subscribePot(callback: () => void) {
+  inTabListeners.add(callback);
+  const onCrossTabStorage = (event: StorageEvent) => {
+    if (event.key === POT_STORAGE_KEY) callback();
+  };
+  window.addEventListener("storage", onCrossTabStorage);
+  return () => {
+    inTabListeners.delete(callback);
+    window.removeEventListener("storage", onCrossTabStorage);
+  };
+}
+
+// useSyncExternalStore compares snapshots by Object.is, so cache the parsed
+// pot against its raw JSON to keep referential identity stable between reads.
+let cachedRaw: string | null = null;
+let cachedPot: CreatedPot | null = null;
+
+function getPotSnapshot(): CreatedPot | null {
+  const raw = window.localStorage.getItem(POT_STORAGE_KEY);
+  if (raw === cachedRaw) return cachedPot;
+  cachedRaw = raw;
+  if (!raw) {
+    cachedPot = null;
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(raw) as CreatedPot;
+    cachedPot = parsed?.name && parsed?.categoryId ? parsed : null;
+  } catch {
+    cachedPot = null;
+  }
+  return cachedPot;
+}
+
+function getPotServerSnapshot(): CreatedPot | null {
+  return null;
+}
+
+const subscribeHydrated = () => () => {};
+const getHydratedClient = () => true;
+const getHydratedServer = () => false;
+
 export function PotProvider({ children }: { children: React.ReactNode }) {
-  const [pot, setPot] = useState<CreatedPot | null>(null);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setPot(readStoredPot());
-    setHydrated(true);
-
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === POT_STORAGE_KEY) setPot(readStoredPot());
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
+  const pot = useSyncExternalStore(
+    subscribePot,
+    getPotSnapshot,
+    getPotServerSnapshot
+  );
+  const hydrated = useSyncExternalStore(
+    subscribeHydrated,
+    getHydratedClient,
+    getHydratedServer
+  );
 
   const savePot = useCallback<PotContextValue["savePot"]>(
     ({ name, categoryId }) => {
@@ -54,7 +87,7 @@ export function PotProvider({ children }: { children: React.ReactNode }) {
         createdAt: new Date().toISOString(),
       };
       window.localStorage.setItem(POT_STORAGE_KEY, JSON.stringify(created));
-      setPot(created);
+      notifyInTab();
       return created;
     },
     []
@@ -62,7 +95,7 @@ export function PotProvider({ children }: { children: React.ReactNode }) {
 
   const clearPot = useCallback(() => {
     window.localStorage.removeItem(POT_STORAGE_KEY);
-    setPot(null);
+    notifyInTab();
   }, []);
 
   const value = useMemo<PotContextValue>(
