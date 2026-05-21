@@ -11,10 +11,6 @@ import {
 import styled, { css } from "styled-components";
 import { Label } from "@/components/ui/Text";
 
-/* -------------------------------------------------------------------------- */
-/* Control surface — shared input/select treatment                            */
-/* -------------------------------------------------------------------------- */
-
 const controlSurface = css<{ $invalid?: boolean; $size?: ControlSize }>`
   display: flex;
   align-items: center;
@@ -50,10 +46,6 @@ const controlSurface = css<{ $invalid?: boolean; $size?: ControlSize }>`
 `;
 
 type ControlSize = keyof typeof import("@/styles/theme").theme.sizes.control;
-
-/* -------------------------------------------------------------------------- */
-/* Field — wraps label + control + helper/error                               */
-/* -------------------------------------------------------------------------- */
 
 const FieldRoot = styled.div`
   display: flex;
@@ -111,10 +103,6 @@ export function Field({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* TextInput — input with optional left/right adornment                       */
-/* -------------------------------------------------------------------------- */
-
 const InputShell = styled.div<{ $invalid?: boolean; $size?: ControlSize }>`
   ${controlSurface}
 
@@ -165,10 +153,6 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     );
   }
 );
-
-/* -------------------------------------------------------------------------- */
-/* Select                                                                     */
-/* -------------------------------------------------------------------------- */
 
 const SelectShell = styled.select<{ $invalid?: boolean; $size?: ControlSize }>`
   ${controlSurface}

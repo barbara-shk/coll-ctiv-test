@@ -8,10 +8,6 @@ interface TileSurfaceProps {
   $tone?: "default" | "muted";
 }
 
-/**
- * Tile — a vertical icon-on-top, label-below button used by the category
- * picker on the homepage and the invite tiles on the pot screen.
- */
 const TileSurface = styled.button<TileSurfaceProps>`
   position: relative;
   display: flex;

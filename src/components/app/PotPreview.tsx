@@ -31,10 +31,6 @@ import {
 import { SignUpModal } from "@/components/site/SignUpModal";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
-/* -------------------------------------------------------------------------- */
-/* Layout                                                                     */
-/* -------------------------------------------------------------------------- */
-
 const Shell = styled.div`
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.surface};
@@ -117,10 +113,6 @@ const BodyArea = styled.div`
   padding-bottom: ${({ theme }) => theme.space[11]};
 `;
 
-/* -------------------------------------------------------------------------- */
-/* Invite tiles config — declarative                                          */
-/* -------------------------------------------------------------------------- */
-
 const INVITE_OPTIONS = [
   { id: "email", label: "Email", icon: <MailIcon size={22} /> },
   { id: "qr", label: "QR Code", icon: <QrIcon size={22} /> },
@@ -129,10 +121,6 @@ const INVITE_OPTIONS = [
   { id: "instagram", label: "Instagram", icon: <InstagramIcon size={20} /> },
   { id: "x", label: "X", icon: <XIcon size={20} /> },
 ] as const;
-
-/* -------------------------------------------------------------------------- */
-/* PotPreview                                                                 */
-/* -------------------------------------------------------------------------- */
 
 interface PotPreviewProps {
   potName: string;

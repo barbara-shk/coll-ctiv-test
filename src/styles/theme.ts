@@ -1,18 +1,4 @@
-/**
- * Collctiv design tokens.
- *
- * Two layers:
- *  - `palette` / scales: primitive values pulled straight from the Figma
- *    variables (named after their Figma swatches).
- *  - `theme`: semantic aliases that everything else in the app should refer
- *    to (e.g. `theme.colors.text.primary` rather than `palette.ebony`).
- *
- * If you find yourself reaching for a raw hex in a component, add a semantic
- * alias here first.
- */
-
 const palette = {
-  // brand
   paua: "#1B0273",
   paua700: "#16025E",
   deepBlue: "#1B0973",
@@ -26,7 +12,6 @@ const palette = {
   schoolBusYellowTint: "#FFFDF0",
   selectiveYellow: "#F5B400",
 
-  // neutrals
   white: "#FFFFFF",
   black: "#000000",
   ebony: "#0F172A",
@@ -191,7 +176,6 @@ const layout = {
 export const theme = {
   palette,
   colors: {
-    // ----- brand surfaces -----
     brand: palette.paua,
     brandStrong: palette.paua700,
     brandTint: palette.selago,
@@ -204,19 +188,16 @@ export const theme = {
     brandHighlightTint: palette.schoolBusYellowTint,
     starGold: palette.selectiveYellow,
 
-    // ----- surfaces -----
     surface: palette.white,
     surfaceMuted: palette.grey98,
     surfaceSubtle: palette.whisper,
     surfaceTinted: palette.selago,
     surfaceInverse: palette.paua,
 
-    // ----- borders -----
     border: palette.athensGray2,
     borderStrong: palette.athensGray,
     borderInteractive: palette.grayChateau,
 
-    // ----- text -----
     text: {
       primary: palette.portGore,
       heading: palette.oxfordBlue,
@@ -229,7 +210,6 @@ export const theme = {
       onAccent: palette.white,
     },
 
-    // ----- feedback -----
     danger: palette.razzmatazz,
     success: palette.blueChill,
 

@@ -26,10 +26,6 @@ function useInView<T extends Element>(threshold = 0.3) {
   return { ref, inView };
 }
 
-/* -------------------------------------------------------------------------- */
-/* Section helpers                                                            */
-/* -------------------------------------------------------------------------- */
-
 const SectionRoot = styled.section<{ $tone?: "default" | "muted" | "brand" }>`
   background: ${({ theme, $tone = "default" }) =>
     $tone === "muted"
@@ -55,10 +51,6 @@ const TwoColumn = styled(Container)`
     gap: ${({ theme }) => theme.space[12]};
   }
 `;
-
-/* -------------------------------------------------------------------------- */
-/* Purple story                                                               */
-/* -------------------------------------------------------------------------- */
 
 const PhoneMockup = styled.div`
   display: flex;
@@ -106,10 +98,6 @@ bank details, account creation, or app download required).
     </SectionRoot>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/* How it works                                                               */
-/* -------------------------------------------------------------------------- */
 
 const Steps = styled.ol`
   margin: ${({ theme }) => theme.space[9]} 0 0;
@@ -320,10 +308,6 @@ export function HowItWorksSection() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* Features                                                                   */
-/* -------------------------------------------------------------------------- */
-
 const FeatureRow = styled(Container)<{ $reverse?: boolean }>`
   display: grid;
   gap: ${({ theme }) => theme.space[8]};
@@ -352,7 +336,6 @@ const reveal = keyframes`
   to { opacity: 1; }
 `;
 
-// Staggered fade-in for each grouped element of the inlined customise-pot SVG.
 const PotIllustration = styled.div<{ $play: boolean }>`
   width: 100%;
   max-width: 460px;
@@ -393,7 +376,6 @@ const PotIllustration = styled.div<{ $play: boolean }>`
   }
 `;
 
-// Slide-up + fade entrance for illustrations 2 and 4 ("parallax loading").
 const ParallaxImage = styled.div<{ $play: boolean; $delay?: number }>`
   width: 100%;
   max-width: 460px;
@@ -589,10 +571,6 @@ export function FeaturesSection() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* Testimonials                                                               */
-/* -------------------------------------------------------------------------- */
-
 const TestimonialsGrid = styled.div`
   margin-top: ${({ theme }) => theme.space[9]};
   display: grid;
@@ -700,10 +678,6 @@ export function TestimonialsSection() {
     </SectionRoot>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/* FAQ                                                                        */
-/* -------------------------------------------------------------------------- */
 
 const FaqContainer = styled(Container)`
   max-width: 880px;
@@ -820,10 +794,6 @@ export function FaqSection() {
     </SectionRoot>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/* Stats banner                                                               */
-/* -------------------------------------------------------------------------- */
 
 const StatsRoot = styled(SectionRoot)`
   padding: ${({ theme }) => `${theme.space[14]} 0`};

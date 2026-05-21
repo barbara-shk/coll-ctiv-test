@@ -24,10 +24,6 @@ import {
   PotCategoryId,
 } from "@/types/pot";
 
-/* -------------------------------------------------------------------------- */
-/* Subcomponents specific to this widget                                      */
-/* -------------------------------------------------------------------------- */
-
 const CategoryGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -58,10 +54,6 @@ const ErrorMessage = styled(motion.p)`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.danger};
 `;
-
-/* -------------------------------------------------------------------------- */
-/* Static config                                                              */
-/* -------------------------------------------------------------------------- */
 
 // Yellow focus halo matching the selected-Tile styling, scoped to the
 // hero widget's input. Double `&&` raises specificity above the shared
@@ -95,10 +87,6 @@ const errorMotion = {
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -4 },
 };
-
-/* -------------------------------------------------------------------------- */
-/* CreatePotWidget                                                            */
-/* -------------------------------------------------------------------------- */
 
 export function CreatePotWidget() {
   const router = useRouter();

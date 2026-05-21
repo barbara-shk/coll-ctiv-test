@@ -32,13 +32,6 @@ const toneBg = (theme: DefaultTheme, tone: SurfaceTone) => {
   }
 };
 
-/**
- * Surface — the only way components should declare a "card-like" container.
- *
- * Lets callers compose tone (background), elevation (shadow), radius, padding,
- * and an optional border — instead of every consumer writing its own
- * background/border/shadow trio.
- */
 export const Surface = styled.div<SurfaceProps>`
   background: ${({ theme, $tone = "default" }) => toneBg(theme, $tone)};
   border-radius: ${({ theme, $radius = "2xl" }) => theme.radii[$radius]};
@@ -68,9 +61,6 @@ export const Surface = styled.div<SurfaceProps>`
     `}
 `;
 
-/**
- * Card — opinionated default Surface: white, bordered, card shadow.
- */
 export const Card = styled(Surface).attrs<SurfaceProps>((props) => ({
   $tone: props.$tone ?? "default",
   $elevation: props.$elevation ?? "card",

@@ -10,12 +10,12 @@ import Link from "next/link";
 import styled, { css, DefaultTheme } from "styled-components";
 
 export type ButtonVariant =
-  | "primary" // yellow brand CTA
-  | "secondary" // deep purple
-  | "pink" // razzmatazz accent
-  | "teal" // brand secondary
-  | "outline" // white card with border
-  | "ghost"; // transparent
+  | "primary"
+  | "secondary"
+  | "pink"
+  | "teal"
+  | "outline"
+  | "ghost";
 
 export type ButtonSize = "sm" | "md" | "lg" | "xl";
 export type ButtonShape = "rounded" | "pill";
@@ -162,10 +162,6 @@ const LinkButtonRoot = styled(Link)<ButtonStyleProps>`
   ${buttonBaseCss}
 `;
 
-/* -------------------------------------------------------------------------- */
-/* Public Button                                                              */
-/* -------------------------------------------------------------------------- */
-
 type SharedButtonProps = {
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -243,10 +239,6 @@ export const Button = forwardRef<
     </ButtonRoot>
   );
 });
-
-/* -------------------------------------------------------------------------- */
-/* IconButton — square button rendering only an icon                          */
-/* -------------------------------------------------------------------------- */
 
 export interface IconButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {

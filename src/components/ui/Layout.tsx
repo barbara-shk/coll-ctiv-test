@@ -4,8 +4,6 @@ import styled, { css, DefaultTheme } from "styled-components";
 
 type Space = keyof DefaultTheme["space"];
 
-/* ---- Container ---- */
-
 export const Container = styled.div<{ $maxWidth?: string }>`
   width: 100%;
   max-width: ${({ theme, $maxWidth }) => $maxWidth ?? theme.layout.maxWidth};
@@ -13,8 +11,6 @@ export const Container = styled.div<{ $maxWidth?: string }>`
   padding-left: ${({ theme }) => theme.layout.pagePadding};
   padding-right: ${({ theme }) => theme.layout.pagePadding};
 `;
-
-/* ---- Stack / Row / Cluster ---- */
 
 interface FlexProps {
   $gap?: Space;
@@ -41,15 +37,11 @@ export const Row = styled.div<FlexProps>`
   flex-direction: row;
 `;
 
-/* ---- Spacer ---- */
-
 export const Spacer = styled.div<{ $size?: Space }>`
   flex: ${({ $size }) => ($size === undefined ? 1 : "none")};
   width: ${({ theme, $size }) => ($size === undefined ? "auto" : theme.space[$size])};
   height: ${({ theme, $size }) => ($size === undefined ? "auto" : theme.space[$size])};
 `;
-
-/* ---- VisuallyHidden ---- */
 
 export const VisuallyHidden = styled.span`
   position: absolute;

@@ -72,8 +72,6 @@ const typographyMixin = css<TypographyProps>`
     `}
 `;
 
-/* ---- Heading ---- */
-
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 interface HeadingPresets {
@@ -148,8 +146,6 @@ export function Heading({
   );
 }
 
-/* ---- Text ---- */
-
 const StyledText = styled.p<TypographyProps>`
   ${typographyMixin}
 `;
@@ -198,8 +194,6 @@ export function Text({
     />
   );
 }
-
-/* ---- Label (form labels) ---- */
 
 export const Label = styled.label<{ $tone?: TextTone }>`
   display: block;
