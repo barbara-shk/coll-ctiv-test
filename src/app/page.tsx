@@ -6,8 +6,8 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Hero } from "@/components/site/Hero";
 import {
+  FeaturesSection,
   HowItWorksSection,
-  PaymentsSection,
   PurpleStorySection,
   StatsBanner,
 } from "@/components/site/Sections";
@@ -32,7 +32,7 @@ export default function HomePage() {
       </div>
       <PurpleStorySection />
       <HowItWorksSection />
-      <PaymentsSection />
+      <FeaturesSection />
       <StatsBanner />
       <SiteFooter />
     </Main>
