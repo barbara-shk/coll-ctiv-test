@@ -40,6 +40,22 @@ const HideOnMobile = styled.span`
   }
 `;
 
+const LoginButton = styled(Button)`
+  && {
+    border-color: ${({ theme }) => theme.palette.deepBlue};
+    color: ${({ theme }) => theme.palette.deepBlue};
+    background: ${({ theme }) => theme.colors.surface};
+    padding-left: ${({ theme }) => theme.space[9]};
+    padding-right: ${({ theme }) => theme.space[9]};
+  }
+
+  &&:hover:not(:disabled) {
+    border-color: ${({ theme }) => theme.palette.deepBlue};
+    color: ${({ theme }) => theme.palette.deepBlue};
+    background: ${({ theme }) => theme.colors.surfaceMuted};
+  }
+`;
+
 interface SiteHeaderProps {
   onCtaClick?: () => void;
 }
@@ -52,9 +68,9 @@ export function SiteHeader({ onCtaClick }: SiteHeaderProps) {
           <Logo />
         </LogoLink>
         <Row $gap={3} $align="center">
-          <Button variant="outline" size="sm" shape="pill">
+          <LoginButton variant="outline" size="sm" shape="pill">
             Login
-          </Button>
+          </LoginButton>
           <HideOnMobile>
             <Button
               variant="primary"

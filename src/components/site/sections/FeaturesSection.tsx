@@ -119,7 +119,7 @@ function FeatureCopy({ title, body }: { title: string; body: string }) {
   return (
     <Stack $gap={4} $align="flex-start">
       <Heading level={2}>{title}</Heading>
-      <Text size="lg" tone="muted" leading="body">
+      <Text size="xl" tone="heading" leading="relaxed">
         {body}
       </Text>
       <Button href="/app/pot/new" size="lg" shape="pill" fullWidth={false}>

@@ -32,6 +32,17 @@ const CategoryGrid = styled.div`
   ${({ theme }) => theme.media.md} {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  && > button:hover:not(:disabled) {
+    background: ${({ theme }) => theme.colors.surface};
+    border-color: ${({ theme }) => theme.colors.brandHighlight};
+    box-shadow: none;
+  }
+
+  && > button[aria-checked="true"]:hover:not(:disabled) {
+    background: ${({ theme }) => theme.colors.brandHighlightTint};
+    box-shadow: ${({ theme }) => theme.shadows.focusAccent};
+  }
 `;
 
 const TrustRow = styled.div`

@@ -28,6 +28,22 @@ interface ButtonStyleProps {
   $iconOnly?: boolean;
 }
 
+const pillPaddingX = (theme: DefaultTheme) =>
+  ({
+    sm: theme.space[8],
+    md: theme.space[8],
+    lg: theme.space[9],
+    xl: theme.space[9],
+  }) satisfies Record<ButtonSize, string>;
+
+const pillPaddingY = (theme: DefaultTheme) =>
+  ({
+    sm: theme.space[5],
+    md: theme.space[5],
+    lg: theme.space[6],
+    xl: theme.space[6],
+  }) satisfies Record<ButtonSize, string>;
+
 const sizeStyles = (theme: DefaultTheme) =>
   ({
     sm: css`
@@ -133,7 +149,20 @@ const buttonBaseCss = css<ButtonStyleProps>`
     $shape === "pill" ? theme.radii.pill : theme.radii.lg};
 
   ${({ theme, $size = "md" }) => sizeStyles(theme)[$size]}
-  ${({ theme, $variant = "primary" }) => variantStyles(theme)[$variant]}
+  ${({ theme, $variant = "primary" }) => css`
+    && {
+      ${variantStyles(theme)[$variant]}
+    }
+  `}
+
+  ${({ theme, $shape, $size = "md" }) =>
+    $shape === "pill" &&
+    css`
+      padding-left: ${pillPaddingX(theme)[$size]};
+      padding-right: ${pillPaddingX(theme)[$size]}; 
+      padding-top: ${pillPaddingY(theme)[$size]};
+      padding-bottom: ${pillPaddingY(theme)[$size]};
+    `}
 
   ${({ $fullWidth }) => $fullWidth && "width: 100%;"}
 

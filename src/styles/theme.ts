@@ -34,9 +34,9 @@ const palette = {
 } as const;
 
 const fontFamilies = {
-  body: '"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
-  display: '"Inter", system-ui, -apple-system, sans-serif',
-  secondary: '"Montserrat", system-ui, sans-serif',
+  body: 'var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
+  display: 'var(--font-inter), system-ui, -apple-system, sans-serif',
+  secondary: 'var(--font-montserrat), system-ui, sans-serif',
 } as const;
 
 const fontSizes = {

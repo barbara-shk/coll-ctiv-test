@@ -28,7 +28,7 @@ export const GlobalStyles = createGlobalStyle`
 
   ul, ol { margin: 0; padding: 0; }
 
-  a { color: inherit; text-decoration: none; }
+  a, a:visited { color: inherit; text-decoration: none; }
 
   button { font-family: inherit; }
 
