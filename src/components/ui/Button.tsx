@@ -1,6 +1,12 @@
 "use client";
 
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
+import {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  forwardRef,
+  ReactNode,
+} from "react";
+import Link from "next/link";
 import styled, { css, DefaultTheme } from "styled-components";
 
 export type ButtonVariant =
@@ -104,7 +110,7 @@ const variantStyles = (theme: DefaultTheme) =>
     `,
   }) satisfies Record<ButtonVariant, ReturnType<typeof css>>;
 
-const ButtonRoot = styled.button<ButtonStyleProps>`
+const buttonBaseCss = css<ButtonStyleProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -115,6 +121,7 @@ const ButtonRoot = styled.button<ButtonStyleProps>`
   font-weight: ${({ theme }) => theme.fontWeights.semibold};
   line-height: 1;
   cursor: pointer;
+  text-decoration: none;
   transition: background-color ${({ theme }) => theme.transitions.base},
     border-color ${({ theme }) => theme.transitions.base},
     color ${({ theme }) => theme.transitions.base},
@@ -147,22 +154,44 @@ const ButtonRoot = styled.button<ButtonStyleProps>`
   }
 `;
 
+const ButtonRoot = styled.button<ButtonStyleProps>`
+  ${buttonBaseCss}
+`;
+
+const LinkButtonRoot = styled(Link)<ButtonStyleProps>`
+  ${buttonBaseCss}
+`;
+
 /* -------------------------------------------------------------------------- */
 /* Public Button                                                              */
 /* -------------------------------------------------------------------------- */
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+type SharedButtonProps = {
   variant?: ButtonVariant;
   size?: ButtonSize;
   shape?: ButtonShape;
   fullWidth?: boolean;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-}
+};
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  {
+type ButtonAsButton = SharedButtonProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof SharedButtonProps> & {
+    href?: undefined;
+  };
+
+type ButtonAsAnchor = SharedButtonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof SharedButtonProps> & {
+    href: string;
+  };
+
+export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
+
+export const Button = forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(function Button(props, ref) {
+  const {
     variant = "primary",
     size = "md",
     shape = "rounded",
@@ -170,20 +199,43 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     leftIcon,
     rightIcon,
     children,
-    type = "button",
     ...rest
-  },
-  ref
-) {
+  } = props;
+
+  const styleProps = {
+    $variant: variant,
+    $size: size,
+    $shape: shape,
+    $fullWidth: fullWidth,
+  };
+
+  if (rest.href !== undefined) {
+    const { target, rel, href, ...anchorRest } =
+      rest as AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+    return (
+      <LinkButtonRoot
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        href={href}
+        target={target}
+        rel={target === "_blank" && !rel ? "noreferrer" : rel}
+        {...styleProps}
+        {...anchorRest}
+      >
+        {leftIcon}
+        {children}
+        {rightIcon}
+      </LinkButtonRoot>
+    );
+  }
+
+  const { type = "button", ...buttonRest } =
+    rest as ButtonHTMLAttributes<HTMLButtonElement>;
   return (
     <ButtonRoot
-      ref={ref}
+      ref={ref as React.Ref<HTMLButtonElement>}
       type={type}
-      $variant={variant}
-      $size={size}
-      $shape={shape}
-      $fullWidth={fullWidth}
-      {...rest}
+      {...styleProps}
+      {...buttonRest}
     >
       {leftIcon}
       {children}
