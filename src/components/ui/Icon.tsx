@@ -114,6 +114,26 @@ export function InstagramIcon({ size = 21, ...rest }: IconProps) {
   );
 }
 
+export function LinkedInIcon({ size = 21, ...rest }: IconProps) {
+  return (
+    <svg {...base(size)} {...rest} viewBox="0 0 24 24">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+export function PinterestIcon({ size = 21, ...rest }: IconProps) {
+  return (
+    <svg {...base(size)} {...rest} viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 21l4-9" />
+      <path d="M9.5 13.5c.5 1 1.5 1.5 2.5 1.5 2.5 0 4-2 4-4.5C16 8.5 14.5 7 12 7S8 8.5 8 10.5" />
+    </svg>
+  );
+}
+
 export function XIcon({ size = 21, ...rest }: IconProps) {
   return (
     <svg {...base(size)} {...rest} viewBox="0 0 24 24">
