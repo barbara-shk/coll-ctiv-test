@@ -1,7 +1,8 @@
 "use client";
 
 import styled from "styled-components";
-import { Container, Heading, Row, Stack, Text } from "@/components/ui";
+import { Button, Container, Heading, Row, Stack, Text } from "@/components/ui";
+import Link from "next/link";
 
 /* -------------------------------------------------------------------------- */
 /* Section helpers                                                            */
@@ -37,46 +38,14 @@ const TwoColumn = styled(Container)`
 /* Purple story                                                               */
 /* -------------------------------------------------------------------------- */
 
-const PhoneCluster = styled.div`
+const PhoneMockup = styled.div`
   display: flex;
   justify-content: center;
-  gap: ${({ theme }) => theme.space[4]};
-`;
+  align-items: center;
 
-const Phone = styled.div<{ $tilt: number }>`
-  width: 160px;
-  height: 320px;
-  border-radius: ${({ theme }) => theme.radii["3xl"]};
-  background: ${({ theme }) => theme.colors.surface};
-  border: 6px solid ${({ theme }) => theme.palette.portGore};
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
-  transform: rotate(${({ $tilt }) => $tilt}deg);
-  padding: ${({ theme }) => theme.space[4]};
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.space[2]};
-
-  .row {
-    height: 12px;
-    border-radius: ${({ theme }) => theme.radii.xs};
-    background: ${({ theme }) => theme.colors.border};
-  }
-  .row.purple {
-    background: ${({ theme }) => theme.colors.brand};
-    opacity: 0.85;
-    width: 60%;
-  }
-  .card {
-    margin-top: ${({ theme }) => theme.space[2]};
-    background: ${({ theme }) => theme.colors.surfaceTinted};
-    border-radius: ${({ theme }) => theme.radii.md};
-    height: 56px;
-  }
-  .cta {
-    margin-top: auto;
-    background: ${({ theme }) => theme.colors.brandHighlight};
-    border-radius: ${({ theme }) => theme.radii.md};
-    height: 36px;
+  img {
+    max-width: 100%;
+    height: auto;
   }
 `;
 
@@ -84,27 +53,33 @@ export function PurpleStorySection() {
   return (
     <SectionRoot $tone="brand">
       <TwoColumn>
-        <Stack $gap={4}>
+        <Stack $gap={4} $align="flex-start">
           <Heading level={2} size="5xl" tone="inverse">
             Organise the things you love with the people you love — without
             getting stuck with the bill.
           </Heading>
           <Text size="lg" tone="inverse" leading="body">
-            Stop chasing friends for money. Collect, organise and spend
-            together — securely, on any device.
+            We know it can be super awkward (and frustrating!) chasing people down
+for money, so we've made it easy to collect money from groups of people.
+Here's how:
           </Text>
+          <Text size="lg" tone="inverse" leading="body">
+            1) You request money from friends by sending them a custom payment link
+or QR code.
+          </Text>
+          <Text size="lg" tone="inverse" leading="body">
+            2) They use Apple Pay, Google Pay or their digital wallet to pay you (no
+bank details, account creation, or app download required).
+          </Text>
+          <Button href="/app/pot/new" size="lg" shape="pill" fullWidth={false}>
+  Collect money now
+</Button>
+
+
         </Stack>
-        <PhoneCluster aria-hidden>
-          {[-6, 6].map((tilt) => (
-            <Phone key={tilt} $tilt={tilt}>
-              <div className="row purple" />
-              <div className="row" />
-              <div className="card" />
-              <div className="row" />
-              <div className="cta" />
-            </Phone>
-          ))}
-        </PhoneCluster>
+        <PhoneMockup aria-hidden>
+          <img src="/assets/phone-mockup.png" alt="" />
+        </PhoneMockup>
       </TwoColumn>
     </SectionRoot>
   );
