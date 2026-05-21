@@ -1,4 +1,4 @@
-export { PurpleStorySection } from "./PurpleStorySection";
+export { PurpleStorySection } from "./BlueStorySection";
 export { HowItWorksSection } from "./HowItWorksSection";
 export { FeaturesSection } from "./FeaturesSection";
 export { TestimonialsSection } from "./TestimonialsSection";

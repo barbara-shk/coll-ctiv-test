@@ -18,4 +18,6 @@ export { Modal } from "./Modal";
 
 export { Logo } from "./Logo";
 
+export { Reveal } from "./Reveal";
+
 export * from "./Icon";

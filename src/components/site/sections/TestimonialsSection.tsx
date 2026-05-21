@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { Container, Heading, Stack, Text } from "@/components/ui";
+import { Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { SectionRoot } from "./shared";
 
 const TestimonialsGrid = styled.div`
@@ -83,27 +83,31 @@ export function TestimonialsSection() {
   return (
     <SectionRoot>
       <Container>
-        <Heading level={2} align="center">
-          Our customers love us
-        </Heading>
+        <Reveal>
+          <Heading level={2} align="center">
+            Our customers love us
+          </Heading>
+        </Reveal>
         <TestimonialsGrid>
-          {TESTIMONIALS.map((t) => {
+          {TESTIMONIALS.map((t, i) => {
             const store = STORE_META[t.store];
             return (
-              <TestimonialCard key={t.name}>
-                <TestimonialHeader>
-                  <Stack $gap={2} $align="flex-start">
-                    <Text weight="bold">{t.name}</Text>
-                    <Stars aria-label={`${t.rating} out of 5 stars`}>
-                      {"⭐".repeat(t.rating)}
-                    </Stars>
-                  </Stack>
-                  <StoreBadge src={store.src} alt={store.alt} />
-                </TestimonialHeader>
-                <Text size="md" tone="secondary" leading="body">
-                  {t.body}
-                </Text>
-              </TestimonialCard>
+              <Reveal key={t.name} delay={i * 120}>
+                <TestimonialCard>
+                  <TestimonialHeader>
+                    <Stack $gap={2} $align="flex-start">
+                      <Text weight="bold">{t.name}</Text>
+                      <Stars aria-label={`${t.rating} out of 5 stars`}>
+                        {"⭐".repeat(t.rating)}
+                      </Stars>
+                    </Stack>
+                    <StoreBadge src={store.src} alt={store.alt} />
+                  </TestimonialHeader>
+                  <Text size="md" tone="secondary" leading="body">
+                    {t.body}
+                  </Text>
+                </TestimonialCard>
+              </Reveal>
             );
           })}
         </TestimonialsGrid>

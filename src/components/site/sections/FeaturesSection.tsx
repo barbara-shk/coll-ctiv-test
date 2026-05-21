@@ -1,7 +1,7 @@
 "use client";
 
 import styled, { css, keyframes } from "styled-components";
-import { Button, Container, Heading, Stack, Text } from "@/components/ui";
+import { Button, Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { useInView } from "@/hooks/useInView";
 import { SectionRoot } from "./shared";
 import { CustomisePotSvg } from "./CustomisePotSvg";
@@ -74,34 +74,15 @@ const PotIllustration = styled.div<{ $play: boolean }>`
   }
 `;
 
-const ParallaxImage = styled.div<{ $play: boolean; $delay?: number }>`
+const MediaWrap = styled.div`
   width: 100%;
   max-width: 460px;
   margin: 0 auto;
-  opacity: 0;
-  transform: translateY(48px);
-  transition:
-    opacity 0.9s cubic-bezier(0.2, 0.65, 0.2, 1),
-    transform 0.9s cubic-bezier(0.2, 0.65, 0.2, 1);
-  transition-delay: ${({ $delay = 0 }) => `${$delay}ms`};
-
-  ${({ $play }) =>
-    $play &&
-    css`
-      opacity: 1;
-      transform: translateY(0);
-    `}
 
   img {
     display: block;
     width: 100%;
     height: auto;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 `;
 
@@ -133,16 +114,16 @@ function FeatureCopy({ title, body }: { title: string; body: string }) {
 
 export function FeaturesSection() {
   const { ref: customiseRef, inView: customiseInView } = useInView<HTMLDivElement>(0.25);
-  const { ref: bankRef, inView: bankInView } = useInView<HTMLDivElement>(0.25);
-  const { ref: spendRef, inView: spendInView } = useInView<HTMLDivElement>(0.25);
 
   return (
     <SectionRoot>
       <FeatureRow>
-        <FeatureCopy
-          title="Customise your Pot"
-          body="Customise your Pot, send a closing date, show who's paid in already, add a fundraising target, add extra information about the collection, and more."
-        />
+        <Reveal>
+          <FeatureCopy
+            title="Customise your Pot"
+            body="Customise your Pot, send a closing date, show who's paid in already, add a fundraising target, add extra information about the collection, and more."
+          />
+        </Reveal>
         <div ref={customiseRef}>
           <PotIllustration $play={customiseInView}>
             <CustomisePotSvg />
@@ -151,37 +132,45 @@ export function FeaturesSection() {
       </FeatureRow>
 
       <FeatureRow $reverse>
-        <FeatureCopy
-          title="Keep money separate from your bank"
-          body="Don't mix group money in with your personal bank account. Keep track of who's paid what and when."
-        />
-        <div ref={bankRef}>
-          <ParallaxImage $play={bankInView}>
+        <Reveal>
+          <FeatureCopy
+            title="Keep money separate from your bank"
+            body="Don't mix group money in with your personal bank account. Keep track of who's paid what and when."
+          />
+        </Reveal>
+        <Reveal delay={140}>
+          <MediaWrap>
             <img src="/assets/separate-from-bank.svg" alt="" />
-          </ParallaxImage>
-        </div>
+          </MediaWrap>
+        </Reveal>
       </FeatureRow>
 
       <FeatureRow>
-        <FeatureCopy
-          title="Making a payment takes seconds"
-          body="Anyone paying into the collection pot just uses their card details or they can use Apple Pay or Google Pay. No need to sign up for an account or download an app, just tap and you're done! The money appears in your pot instantly."
-        />
-        <StaticIllustration>
-          <img src="/assets/payment-seconds.svg" alt="" />
-        </StaticIllustration>
+        <Reveal>
+          <FeatureCopy
+            title="Making a payment takes seconds"
+            body="Anyone paying into the collection pot just uses their card details or they can use Apple Pay or Google Pay. No need to sign up for an account or download an app, just tap and you're done! The money appears in your pot instantly."
+          />
+        </Reveal>
+        <Reveal delay={140}>
+          <StaticIllustration>
+            <img src="/assets/payment-seconds.svg" alt="" />
+          </StaticIllustration>
+        </Reveal>
       </FeatureRow>
 
       <FeatureRow $reverse>
-        <FeatureCopy
-          title="Spend the money instantly"
-          body="Buy a gift card, send the money to someone else or withdraw straight to your bank account. The choice is yours."
-        />
-        <div ref={spendRef}>
-          <ParallaxImage $play={spendInView} style={{ maxWidth: 391 }}>
+        <Reveal>
+          <FeatureCopy
+            title="Spend the money instantly"
+            body="Buy a gift card, send the money to someone else or withdraw straight to your bank account. The choice is yours."
+          />
+        </Reveal>
+        <Reveal delay={140}>
+          <MediaWrap style={{ maxWidth: 391 }}>
             <img src="/assets/money-instantly.svg" alt="" />
-          </ParallaxImage>
-        </div>
+          </MediaWrap>
+        </Reveal>
       </FeatureRow>
     </SectionRoot>
   );

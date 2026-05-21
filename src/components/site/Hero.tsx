@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { Container, Heading, Stack, Text } from "@/components/ui";
+import { Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { CreatePotWidget } from "./CreatePotWidget";
 
 const Wrap = styled.section`
@@ -56,32 +56,40 @@ export function Hero() {
     <Wrap>
       <Inner>
         <Intro $gap={3} $align="center">
-          <Heading
-            level={1}
-            size="7xl"
-            tone="heading"
-            leading="heading"
-            tracking="snug"
-            align="center"
-          >
-            Collect money without sharing bank details.
-          </Heading>
-          <Text
-            size="xl"
-            family="secondary"
-            tone="secondary"
-            leading="relaxed"
-            align="center"
-          >
-            Organise the things you love with the people you love — without
-            getting stuck with the bill.
-          </Text>
+          <Reveal>
+            <Heading
+              level={1}
+              size="7xl"
+              tone="heading"
+              leading="heading"
+              tracking="snug"
+              align="center"
+            >
+              Collect money without sharing bank details.
+            </Heading>
+          </Reveal>
+          <Reveal delay={120}>
+            <Text
+              size="xl"
+              family="secondary"
+              tone="secondary"
+              leading="relaxed"
+              align="center"
+            >
+              Organise the things you love with the people you love — without
+              getting stuck with the bill.
+            </Text>
+          </Reveal>
         </Intro>
         <Columns>
-          <CreatePotWidget />
-          <Visual aria-hidden>
-            <img src="/assets/cheer-hero-illustration.png" alt="" />
-          </Visual>
+          <Reveal delay={220}>
+            <CreatePotWidget />
+          </Reveal>
+          <Reveal delay={320}>
+            <Visual aria-hidden>
+              <img src="/assets/cheer-hero-illustration.png" alt="" />
+            </Visual>
+          </Reveal>
         </Columns>
       </Inner>
     </Wrap>

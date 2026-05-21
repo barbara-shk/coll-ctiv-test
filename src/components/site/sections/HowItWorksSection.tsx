@@ -1,7 +1,7 @@
 "use client";
 
 import styled, { css, keyframes } from "styled-components";
-import { Container, Heading, Stack, Text } from "@/components/ui";
+import { Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { useInView } from "@/hooks/useInView";
 import { SectionRoot } from "./shared";
 
@@ -166,15 +166,18 @@ export function HowItWorksSection() {
   return (
     <SectionRoot>
       <Container>
-        <Stack $gap={3} $align="center">
-          <Heading level={2} align="center">
-            How does Collctiv work?
-          </Heading>
-        </Stack>
+        <Reveal>
+          <Stack $gap={3} $align="center">
+            <Heading level={2} align="center">
+              How does Collctiv work?
+            </Heading>
+          </Stack>
+        </Reveal>
         <Steps ref={ref}>
-          {STEPS.map((step) => (
-            <Stack key={step.title} as="li" $gap={3} $align="center">
-              <StepImage aria-hidden>
+          {STEPS.map((step, i) => (
+            <Reveal key={step.title} as="li" delay={i * 140}>
+              <Stack $gap={3} $align="center">
+                <StepImage aria-hidden>
                 {step.animation === "clock" && (
                   <ClockSweepImage src={step.image} alt="" $play={inView} />
                 )}
@@ -199,10 +202,11 @@ export function HowItWorksSection() {
               <Heading level={5} align="center">
                 {step.title}
               </Heading>
-              <Text size="md" tone="muted" align="center" leading="body">
-                {step.body}
-              </Text>
-            </Stack>
+                <Text size="md" tone="muted" align="center" leading="body">
+                  {step.body}
+                </Text>
+              </Stack>
+            </Reveal>
           ))}
         </Steps>
       </Container>
