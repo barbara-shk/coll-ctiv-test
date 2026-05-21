@@ -96,8 +96,10 @@ const LinkList = styled.ul`
   gap: ${({ theme }) => theme.space[4]};
 
   a {
-    color: ${({ theme }) => theme.colors.text.secondary};
+    color: ${({ theme }) => theme.palette.waterloo};
     font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    line-height: ${({ theme }) => theme.lineHeights.relaxed};
     text-decoration: none;
     transition: color ${({ theme }) => theme.transitions.base};
 

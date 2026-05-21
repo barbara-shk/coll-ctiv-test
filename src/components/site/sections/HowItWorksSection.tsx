@@ -202,7 +202,7 @@ export function HowItWorksSection() {
               <Heading level={5} align="center">
                 {step.title}
               </Heading>
-                <Text size="md" tone="muted" align="center" leading="body">
+                <Text size="xl" tone="heading" align="center" leading="snug">
                   {step.body}
                 </Text>
               </Stack>

@@ -48,7 +48,7 @@ describe("CreatePotWidget", () => {
     const user = userEvent.setup();
     renderWithProviders(<CreatePotWidget />);
 
-    const input = screen.getByPlaceholderText(/john's birthday/i);
+    const input = screen.getByPlaceholderText(/enter a name for this pot/i);
     const dirty = "<script>" + "a".repeat(80);
     await user.type(input, dirty);
 
@@ -62,7 +62,7 @@ describe("CreatePotWidget", () => {
 
     await user.click(screen.getByRole("radio", { name: /whip-round for a gift/i }));
     await user.type(
-      screen.getByPlaceholderText(/john's birthday/i),
+      screen.getByPlaceholderText(/enter a name for this pot/i),
       "John's Birthday"
     );
     await user.click(screen.getByRole("button", { name: /create your pot/i }));

@@ -2,23 +2,31 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function useInView<T extends Element>(threshold = 0.3) {
-  const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
+// One-shot scroll-reveal trigger: 
+// flips inView true the first time the element crosses `threshold`,
+// then disconnects so the animation never replays.
+
+export function useInView<TargetElement extends Element>(visibilityThreshold = 0.3) {
+  const targetRef = useRef<TargetElement>(null);
+  const [hasBeenSeen, setHasBeenSeen] = useState(false);
+
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
+    const targetElement = targetRef.current;
+    if (!targetElement) return;
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
+      ([firstEntry]) => {
+        if (firstEntry.isIntersecting) {
+          setHasBeenSeen(true);
           observer.disconnect();
         }
       },
-      { threshold }
+      { threshold: visibilityThreshold }
     );
-    observer.observe(node);
+
+    observer.observe(targetElement);
     return () => observer.disconnect();
-  }, [threshold]);
-  return { ref, inView };
+  }, [visibilityThreshold]);
+
+  return { ref: targetRef, inView: hasBeenSeen };
 }

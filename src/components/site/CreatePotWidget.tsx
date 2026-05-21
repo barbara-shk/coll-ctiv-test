@@ -50,8 +50,11 @@ const TrustRow = styled.div`
   align-items: center;
   justify-content: center;
   gap: ${({ theme }) => theme.space[2]};
-  color: ${({ theme }) => theme.colors.text.muted};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-family: ${({ theme }) => theme.fonts.secondary};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  line-height: ${({ theme }) => theme.lineHeights.loose};
 
   .stars {
     display: inline-flex;
@@ -169,7 +172,7 @@ export function CreatePotWidget() {
               id={nameInputId}
               type="text"
               maxLength={POT_NAME_MAX_LENGTH}
-              placeholder="e.g. John's Birthday"
+              placeholder="Enter a name for this pot"
               value={name}
               onChange={(event) => setName(sanitiseName(event.target.value))}
               autoComplete="off"
@@ -193,7 +196,7 @@ export function CreatePotWidget() {
         <TrustRow>
           <span className="stars" aria-hidden>
             {Array.from({ length: 5 }).map((_, i) => (
-              <StarIcon key={i} size={12} />
+              <StarIcon key={i} size={14} />
             ))}
           </span>
           Trusted by 3000+ App Store reviewers
