@@ -35,7 +35,7 @@ describe("CreatePotWidget", () => {
     const user = userEvent.setup();
     renderWithProviders(<CreatePotWidget />);
 
-    await user.click(screen.getByRole("radio", { name: /pitch in for a gift/i }));
+    await user.click(screen.getByRole("radio", { name: /whip-round for a gift/i }));
     await user.click(screen.getByRole("button", { name: /create your pot/i }));
 
     expect(
@@ -60,7 +60,7 @@ describe("CreatePotWidget", () => {
     const user = userEvent.setup();
     renderWithProviders(<CreatePotWidget />);
 
-    await user.click(screen.getByRole("radio", { name: /pitch in for a gift/i }));
+    await user.click(screen.getByRole("radio", { name: /whip-round for a gift/i }));
     await user.type(
       screen.getByPlaceholderText(/john's birthday/i),
       "John's Birthday"
