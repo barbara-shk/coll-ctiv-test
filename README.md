@@ -42,9 +42,9 @@ For a client-only exercise I went with **`localStorage` under the key
 `collctiv:pot`**, wrapped in a small `PotContext`
 ([src/context/PotContext.tsx](src/context/PotContext.tsx)). The context:
 
-- Reads on mount inside `useEffect` so SSR doesn't blow up and there are no hydration mismatches.
-- Has a `hydrated` flag so the pot screen doesn't flash fallback UI before the read finishes.
-- Listens to the `storage` event so a second tab stays in sync - that's the same-origin stand-in for the cross-origin broadcast you'd want in production.
+- Reads localStorage through `useSyncExternalStore` so the snapshot is consistent across renders, SSR safely returns `null`, and there are no hydration mismatches.
+- Exposes a `hydrated` flag (server snapshot `false`, client `true`) so the pot screen doesn't flash fallback UI before the first client read.
+- Listens to the `storage` event so a second tab stays in sync - the same-origin stand-in for the cross-origin broadcast you'd want in production - and notifies in-tab subscribers on every `savePot`/`clearPot`.
 - Funnels every write through `savePot` so the sanitisation/validation rules live in one place.
 
 After the user submits the widget, `useRouter().push("/app/pot")` changes the URL (so the address bar reflects the "domain change" the user would see for real) and the next route reads the pot independently. It's deliberately not a prop drill or a shared module import - I wanted the two screens to be as disconnected as they'd be in production.
