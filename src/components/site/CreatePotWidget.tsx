@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
@@ -108,6 +108,30 @@ export function CreatePotWidget() {
   const [name, setName] = useState("");
   const [showErrors, setShowErrors] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const categoryRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const moveCategoryFocus = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number
+  ) => {
+    let nextIndex: number | null = null;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      nextIndex = (currentIndex + 1) % POT_CATEGORIES.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      nextIndex =
+        (currentIndex - 1 + POT_CATEGORIES.length) % POT_CATEGORIES.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = POT_CATEGORIES.length - 1;
+    }
+    if (nextIndex === null) return;
+    event.preventDefault();
+    const nextCategory = POT_CATEGORIES[nextIndex];
+    setCategoryId(nextCategory.id);
+    if (showErrors) setShowErrors(false);
+    categoryRefs.current[nextIndex]?.focus();
+  };
 
   const trimmedName = name.trim();
   const categoryError = !categoryId ? "Please choose a category" : null;
@@ -133,21 +157,29 @@ export function CreatePotWidget() {
             What are you collecting for?
           </Heading>
           <CategoryGrid role="radiogroup" aria-labelledby={categoryLabelId}>
-            {POT_CATEGORIES.map((category) => {
+            {POT_CATEGORIES.map((category, index) => {
               const emoji = CATEGORY_EMOJI[category.id];
               const selected = categoryId === category.id;
+              const isTabStop = categoryId
+                ? selected
+                : index === 0;
               return (
                 <Tile
                   key={category.id}
+                  ref={(el) => {
+                    categoryRefs.current[index] = el;
+                  }}
                   role="radio"
                   aria-checked={selected}
                   selected={selected}
+                  tabIndex={isTabStop ? 0 : -1}
                   icon={<span style={{ fontSize: "24px" }}>{emoji}</span>}
                   label={category.label}
                   onClick={() => {
                     setCategoryId(category.id);
                     if (showErrors) setShowErrors(false);
                   }}
+                  onKeyDown={(event) => moveCategoryFocus(event, index)}
                 />
               );
             })}
