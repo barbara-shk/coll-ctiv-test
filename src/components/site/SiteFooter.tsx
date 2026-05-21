@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
+import Image from "next/image";
 import styled from "styled-components";
 import { Container, Logo, Row, Stack, Text } from "@/components/ui";
 import {
@@ -151,10 +152,17 @@ export function SiteFooter() {
         <Columns>
           <BrandColumn>
             <Logo />
-            <img src="/assets/techstars-logo.png" alt="Techstars" />
-            <img
+            <Image
+              src="/assets/techstars-logo.png"
+              alt="Techstars"
+              width={171}
+              height={33}
+            />
+            <Image
               src="/assets/stars-of-the-workplace-2023.png"
               alt="Winner — Stars of the Workplace 2023"
+              width={100}
+              height={100}
             />
             <Text size="md" tone="muted">
               Follow us on social

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled from "styled-components";
 import { Stack, Surface, Text, Tile } from "@/components/ui";
 
@@ -18,12 +19,6 @@ const InviteGrid = styled.div`
   ${({ theme }) => theme.media.md} {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-`;
-
-const InviteIcon = styled.img`
-  width: 22px;
-  height: 22px;
-  display: block;
 `;
 
 const INVITE_OPTIONS = [
@@ -50,7 +45,9 @@ export function InvitePanel({ onAction }: InvitePanelProps) {
           {INVITE_OPTIONS.map((opt) => (
             <Tile
               key={opt.id}
-              icon={<InviteIcon src={opt.src} alt="" />}
+              icon={
+                <Image src={opt.src} alt="" width={22} height={22} />
+              }
               label={opt.label}
               onClick={onAction}
             />

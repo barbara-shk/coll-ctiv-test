@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled, { css, keyframes } from "styled-components";
 import { Button, Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { useInView } from "@/hooks/useInView";
@@ -157,7 +158,12 @@ export function FeaturesSection() {
         </Reveal>
         <Reveal delay={140}>
           <MediaWrap>
-            <img src="/assets/separate-from-bank.svg" alt="" />
+            <Image
+              src="/assets/separate-from-bank.svg"
+              alt=""
+              width={392}
+              height={456}
+            />
           </MediaWrap>
         </Reveal>
       </FeatureRow>
@@ -171,7 +177,12 @@ export function FeaturesSection() {
         </Reveal>
         <Reveal delay={140}>
           <StaticIllustration>
-            <img src="/assets/payment-seconds.svg" alt="" />
+            <Image
+              src="/assets/payment-seconds.svg"
+              alt=""
+              width={486}
+              height={191}
+            />
           </StaticIllustration>
         </Reveal>
       </FeatureRow>
@@ -185,7 +196,12 @@ export function FeaturesSection() {
         </Reveal>
         <Reveal delay={140}>
           <MediaWrap style={{ maxWidth: 391 }}>
-            <img src="/assets/money-instantly.svg" alt="" />
+            <Image
+              src="/assets/money-instantly.svg"
+              alt=""
+              width={400}
+              height={305}
+            />
           </MediaWrap>
         </Reveal>
       </FeatureRow>

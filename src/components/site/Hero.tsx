@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled from "styled-components";
 import { Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { CreatePotWidget } from "./CreatePotWidget";
@@ -87,7 +88,13 @@ export function Hero() {
           </Reveal>
           <Reveal delay={320}>
             <Visual aria-hidden>
-              <img src="/assets/cheer-hero-illustration.png" alt="" />
+              <Image
+                src="/assets/cheer-hero-illustration.png"
+                alt=""
+                width={483}
+                height={435}
+                priority
+              />
             </Visual>
           </Reveal>
         </Columns>

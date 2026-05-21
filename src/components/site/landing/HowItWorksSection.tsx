@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled, { css, keyframes } from "styled-components";
 import { Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { useInView } from "@/hooks/useInView";
@@ -38,7 +39,11 @@ const StepImage = styled.div`
 // The C-shape in create-pot.svg has its tips at ~20° and ~340° (measured
 // clockwise from 12 o'clock), so the sweep starts at the right tip and
 // spans 320° clockwise around to the left tip.
-const ClockSweepImage = styled.img<{ $play: boolean }>`
+const ClockSweepImage = styled(Image)<{ $play: boolean }>`
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  object-fit: contain;
   -webkit-mask-image: conic-gradient(
     from 20deg,
     #000 var(--sweep),
@@ -179,11 +184,22 @@ export function HowItWorksSection() {
               <Stack $gap={3} $align="center">
                 <StepImage aria-hidden>
                 {step.animation === "clock" && (
-                  <ClockSweepImage src={step.image} alt="" $play={inView} />
+                  <ClockSweepImage
+                    src={step.image}
+                    alt=""
+                    width={155}
+                    height={150}
+                    $play={inView}
+                  />
                 )}
                 {step.animation === "coins" && (
                   <CoinPile>
-                    <img src={step.image} alt="" />
+                    <Image
+                      src={step.image}
+                      alt=""
+                      width={197}
+                      height={150}
+                    />
                     {FALLING_COINS.map((coin, i) => (
                       <FallingCoin
                         key={i}
@@ -197,7 +213,15 @@ export function HowItWorksSection() {
                     ))}
                   </CoinPile>
                 )}
-                {step.animation === "none" && <img src={step.image} alt="" />}
+                {step.animation === "none" && (
+                  <Image
+                    src={step.image}
+                    alt=""
+                    width={288}
+                    height={150}
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
+                )}
               </StepImage>
               <Heading level={5} align="center">
                 {step.title}

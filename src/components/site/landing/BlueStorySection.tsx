@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled from "styled-components";
 import { Button, Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { SectionRoot } from "./shared";
@@ -57,7 +58,13 @@ export function PurpleStorySection() {
         </Reveal>
         <Reveal delay={180}>
           <PhoneMockup aria-hidden>
-            <img src="/assets/phone-mockup.png" alt="" />
+            <Image
+              src="/assets/phone-mockup.png"
+              alt=""
+              width={432}
+              height={442}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
           </PhoneMockup>
         </Reveal>
       </TwoColumn>

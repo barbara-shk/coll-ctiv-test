@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled from "styled-components";
 import { Container, Heading, Reveal, Stack, Text } from "@/components/ui";
 import { SectionRoot } from "./shared";
@@ -33,9 +34,7 @@ const TestimonialHeader = styled.header`
   gap: ${({ theme }) => theme.space[3]};
 `;
 
-const StoreBadge = styled.img`
-  width: 40px;
-  height: 40px;
+const StoreBadge = styled(Image)`
   border-radius: ${({ theme }) => theme.radii.lg};
   flex-shrink: 0;
 `;
@@ -102,7 +101,7 @@ export function TestimonialsSection() {
                         {"⭐".repeat(t.rating)}
                       </Stars>
                     </Stack>
-                    <StoreBadge src={store.src} alt={store.alt} />
+                    <StoreBadge src={store.src} alt={store.alt} width={40} height={40} />
                   </TestimonialHeader>
                   <Text size="md" tone="secondary" leading="body">
                     {t.body}
